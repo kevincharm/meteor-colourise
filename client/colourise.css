@@ -1,0 +1,15 @@
+.colourise-box {
+	background-color: #EEEEEE;
+	width: 200px;
+	position: fixed !important;
+	right: 20px;
+	bottom: 20px;
+	padding: 20px 20px 20px 20px;
+	box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+	z-index: 1030;
+}
+
+.colourise-form-block {
+	display: block;
+	padding: 5px 5px 5px 5px;
+}

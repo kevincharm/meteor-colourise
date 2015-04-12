@@ -1,0 +1,19 @@
+<body>
+	{{> colourise}}
+</body>
+<template name="colourise">
+	<div class="colourise-box" id="colourise-box">
+		<h4>Editing {{currentTargetType}} [{{currentTargetSelector}}]</h4>
+		<div class="colourise-form-block">
+			<input type="text" class="colourise-fg-colour" value="{{getTargetFgColour}}">
+		</div>
+		<div class="colourise-form-block">
+			<input type="text" class="colourise-bg-colour" value="{{getTargetBgColour}}">
+		</div>
+		<div class="colourise-form-block">
+			<button class="btn btn-primary colourise-btn-update">Update</button>
+			<button class="btn btn-warning colourise-btn-disable">Disable</button>
+			<button class="btn btn-warning colourise-btn-reset">Reset</button>
+		</div>
+	</div>
+</template>
