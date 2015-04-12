@@ -53,10 +53,18 @@ Template.colourise.events({
 		var newFgColour = $('.colourise-fg-colour').val();
 		var newBgColour = $('.colourise-bg-colour').val();
 		console.log('update colours: ', newFgColour, newBgColour);
-		$(element.nodeSelector).css('color', newFgColour);
-		$(element.nodeSelector).css('background-color', newBgColour);
+		$(element.nodeSelector).each(function () {
+			this.style.setProperty('color', newFgColour, 'important');
+			this.style.setProperty('background-color', newBgColour, 'important');
+		});
 	},
 	'click': function (event) {
+		event.stopImmediatePropagation();
+	},
+	'keyup': function (event) {
+		if (event.which == 13) {
+			$('.colourise-btn-update').trigger('click');
+		}
 		event.stopImmediatePropagation();
 	}
 });
