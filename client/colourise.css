@@ -1,24 +1,46 @@
 @import url('//fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 .colourise-box {
-	background-color: rgba(220,220,220,0.8);
-	width: 300px;
-  max-width: 100vw;
+	background-color: rgba(220,220,220,0.8)  !important;
+	width: 300px !important;
+  max-width: 100vw  !important;
 	position: fixed !important;
-	right: 20px;
-	bottom: 20px;
-	padding: 20px 20px 20px 20px;
+	right: 20px !important;
+	bottom: 20px !important;
+	padding: 20px 20px 20px 20px !important;
 	box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
 	z-index: 1030;
+  border-radius: 5px;
+}
+
+.colourise-picker {
+  visibility: hidden;
+  background-color: rgba(220,220,220,1) !important;
+  width: 150px  !important;
+  position: fixed !important;
+  right: 350px !important;
+  bottom: 20px !important;
+  padding: 20px 20px 20px 20px !important;
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+  z-index: 1031;
+  border-radius: 5px;
+}
+
+.clrs-picker-colour {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+  width: 100% !important;
+  height: 30px !important;
 }
 
 .colourise-box * {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
+  color: black;
 }
 
 .colourise-box > * {
-  padding: 5px 5px 5px 5px;
+  padding: 5px 5px 5px 5px !important;
 }
 
 .colourise-box h4 {
@@ -29,20 +51,21 @@
 }
 
 .clrs-form-block {
-	display: block;
-  margin-top: 4px;
-  margin-bottom: 4px;
+	display: block !important;
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
 }
 
 .clrs-text-input {
-  width: 100%;
+  width: 100% !important;
+  height: 30px !important;
 }
 
 .clrs-text-label {
   float: none;
   position: absolute;
-  margin-top: 2px;
-  padding-right: 30px;
+  margin-top: 7px !important;
+  padding-right: 30px !important;
   right: 0px;
   color: #fff;
   text-shadow:

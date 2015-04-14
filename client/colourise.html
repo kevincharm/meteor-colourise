@@ -15,7 +15,24 @@
 		<div class="clrs-form-block">
 			<button class="clrs-btn clrs-btn-primary colourise-btn-update">Update</button>
 			<!-- button class="clrs-btn clrs-btn-warning colourise-btn-disable">Disable</button -->
-			<!-- button class="clrs-btn clrs-btn-danger colourise-btn-reset">Reset</button -->
+			<button class="clrs-btn clrs-btn-danger colourise-btn-reset">Reset Colours</button>
 		</div>
+		<div class="colourise-picker">
+			{{#each getColourPalette}}
+			<div class="clrs-picker-colour" style="background-color: {{colour}};" align="center" data-colour="{{colour}}">
+				{{colour}}
+			</div>
+			{{/each}}
+			<div class="clrs-picker-colour" style="color: black; background-color: white;" align="center" data-colour="white">
+				white
+			</div>
+			<div class="clrs-picker-colour" style="color: white; background-color: black;" align="center" data-colour="black">
+				black
+			</div>
+			<div class="clrs-picker-colour" style="background-color: transparent;" align="center" data-colour="transparent">
+				transparent
+			</div>
+		</div>
+		Ctrl+L to toggle
 	</div>
 </template>
