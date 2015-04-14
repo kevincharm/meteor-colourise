@@ -1,4 +1,9 @@
 ColouriseElements = new Mongo.Collection('colouriseelements');
+ignoreTags = [];
+
+Meteor.startup(function () {
+	ignoreTags = ['DIV'];
+});
 
 $.cssHooks.color = {
     get: function(elem) {
@@ -46,6 +51,33 @@ $.cssHooks.backgroundColor = {
     }
 }
 
+Template.colourise.onRendered(function () {
+	Meteor.subscribe('colouriseelements', {
+		onReady: function () {
+			$('html').find('*').each(function () {
+				var nodeClass = this.getAttribute('class') ? '.' + this.getAttribute('class') : null;
+				var nodeId = this.getAttribute('id') ? '#' + this.getAttribute('id') : null;
+				var nodeTag = this.nodeName;
+				if (nodeTag && !ignoreTags.indexOf(nodeTag) && !nodeClass) {
+					var newSelector = 'colourised-' + nodeTag;
+					$(event.target).addClass(newSelector);
+					nodeTag = null;
+					nodeClass = '.' + newSelector;
+				}
+				if (nodeClass || nodeId) {
+					var element = ColouriseElements.findOne({nodeSelector: nodeClass});
+					if (element) {
+						newFgColour = element.fgColour;
+						newBgColour = element.bgColour;
+						this.style.setProperty('color', newFgColour, 'important');
+						this.style.setProperty('background-color', newBgColour, 'important');
+					}
+				}
+			});
+		}
+	});
+});
+
 Template.colourise.events({
 	'click .colourise-btn-update': function (event) {
 		var target = Session.get('currentTarget');
@@ -53,6 +85,7 @@ Template.colourise.events({
 		var newFgColour = $('.colourise-fg-colour').val();
 		var newBgColour = $('.colourise-bg-colour').val();
 		console.log('update colours: ', newFgColour, newBgColour);
+		Meteor.call('updateCE', target, newFgColour, newBgColour);
 		$(element.nodeSelector).each(function () {
 			this.style.setProperty('color', newFgColour, 'important');
 			this.style.setProperty('background-color', newBgColour, 'important');
@@ -74,7 +107,7 @@ Template.colourise.onRendered(function () {
 		var nodeClass = event.target.getAttribute('class') ? ('.' + event.target.getAttribute('class').split(' ').join('.')) : null;
 		var nodeId = event.target.getAttribute('id') ? ('#' + event.target.getAttribute('id')) : null;
 		var nodeTag = event.target.nodeName ? event.target.nodeName : null;
-		if (nodeTag && !nodeClass) {
+		if (nodeTag && !ignoreTags.indexOf(nodeTag) && !nodeClass) {
 			var newSelector = 'colourised-' + nodeTag;
 			$(event.target).addClass(newSelector);
 			nodeTag = null;
