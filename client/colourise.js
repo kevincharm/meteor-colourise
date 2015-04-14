@@ -117,12 +117,12 @@ Tracker.autorun(function () {
 
 Template.colourise.onRendered(function () {
 	var ctrlDown = false;
-    var ctrlKey = 17, lKey = 76;
+    var ctrlKey = 17, shortcutKey = 186;
 
     $(document).keydown(function(e)
     {
         if (e.keyCode == ctrlKey) ctrlDown = true;
-        if (ctrlDown && e.keyCode == lKey) {
+        if (ctrlDown && e.keyCode == shortcutKey) {
         	Session.set('colouriseVisible', !Session.get('colouriseVisible'));
         }
     }).keyup(function(e)

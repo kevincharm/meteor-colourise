@@ -1,7 +1,7 @@
 Package.describe({
 	name: "hellstad:colourise",
 	summary: "Design quicker. Click to change any element's colours!",
-	version: "0.1.0",
+	version: "0.1.1",
 	git: "https://github.com/hellstad/meteor-colourise",
 	debugOnly: true
 });
