@@ -1,4 +1,4 @@
-ColouriseElements = new Mongo.Collection(null);
+ColouriseElements = new Mongo.Collection('colouriseelements');
 
 $.cssHooks.color = {
     get: function(elem) {
@@ -71,35 +71,34 @@ Template.colourise.events({
 
 Template.colourise.onRendered(function () {
 	$('body').click(function (event) {
-			if (event.target.getAttribute('class') || event.target.getAttribute('id')) {
-				var nodeClass = '.' + event.target.getAttribute('class').split(' ').join('.');
-				var nodeId = '#' + event.target.getAttribute('id');
-				Session.set('currentTarget', {
-					type: nodeClass ? 'class' : nodeId ? 'id' : null,
-					selector: nodeClass || nodeId || null
-				});
-				var target = Session.get('currentTarget');
-				var targetFgColour = $(target.selector).css('color');
-				var targetBgColour = $(target.selector).css('background-color');
-				if (ColouriseElements.findOne({nodeSelector: target.selector})) {
-					ColouriseElements.update({nodeSelector: target.selector}, {$set: {
-						fgColour: targetFgColour ? targetFgColour : '',
-						bgColour: targetBgColour ? targetBgColour : ''
-					}});
-				} else {
-					ColouriseElements.insert({
-						nodeSelector: target.selector,
-						nodeEnabled: true,
-						fgColour: targetFgColour ? targetFgColour : '',
-						bgColour: targetBgColour ? targetBgColour : ''
-					});
-				}
-				event.stopPropagation;
-			} else {
-				Session.set('currentTarget', null);
-			}
+		var nodeClass = event.target.getAttribute('class') ? ('.' + event.target.getAttribute('class').split(' ').join('.')) : null;
+		var nodeId = event.target.getAttribute('id') ? ('#' + event.target.getAttribute('id')) : null;
+		var nodeTag = event.target.nodeName ? event.target.nodeName : null;
+		if (nodeTag && !nodeClass) {
+			var newSelector = 'colourised-' + nodeTag;
+			$(event.target).addClass(newSelector);
+			nodeTag = null;
+			nodeClass = '.' + newSelector;
 		}
-	)
+		if (nodeClass || nodeId || nodeTag) {
+			Session.set('currentTarget', {
+				type: nodeClass ? 'class' : nodeId ? 'id' : nodeTag ? 'tag' : null,
+				selector: nodeClass || nodeId || nodeTag || null
+			});
+			var target = Session.get('currentTarget');
+			var targetFgColour = $(target.selector).css('color');
+			var targetBgColour = $(target.selector).css('background-color');
+
+			if (ColouriseElements.findOne({nodeSelector: target.selector})) {
+				Meteor.call('updateCE', target, targetFgColour, targetBgColour);
+			} else {
+				Meteor.call('insertCE', target, targetFgColour, targetBgColour)
+			}
+			event.stopPropagation;
+		} else {
+			Session.set('currentTarget', null);
+		}
+	})
 });
 
 Template.colourise.helpers({
