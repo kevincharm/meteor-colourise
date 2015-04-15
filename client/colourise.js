@@ -109,6 +109,14 @@ Tracker.autorun(function () {
 });
 
 Tracker.autorun(function () {
+	if (typeof Router !== 'undefined') {
+		if (Router.current()) {
+			colouriseEverything();
+		}
+	}
+});
+
+Tracker.autorun(function () {
 	if (Session.get('resetColours')) {
 		Session.set('resetColours', false);
 		location.reload();
