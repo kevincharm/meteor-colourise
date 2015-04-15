@@ -33,7 +33,7 @@
   height: 30px !important;
 }
 
-.colourise-box * {
+.colourise-box, .colourise-box *, .colourise-box > * {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 16px;
   color: black;
