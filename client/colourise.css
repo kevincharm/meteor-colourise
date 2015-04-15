@@ -62,6 +62,7 @@
 .clrs-text-input {
   width: 100% !important;
   height: 30px !important;
+  padding: 0px !important;
 }
 
 .clrs-text-label {
