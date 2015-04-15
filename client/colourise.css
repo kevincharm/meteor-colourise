@@ -24,6 +24,8 @@
   box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
   z-index: 1031;
   border-radius: 5px;
+  max-height: calc(100vh - 50px);
+  overflow-y: scroll;
 }
 
 .clrs-picker-colour {
@@ -31,6 +33,7 @@
   margin-bottom: 2px !important;
   width: 100% !important;
   height: 30px !important;
+  cursor: pointer;
 }
 
 .colourise-box, .colourise-box *, .colourise-box > * {
@@ -75,6 +78,20 @@
   1px 1px 0 #BDBDBD;
   font-style: italic;
   overflow: hidden;
+}
+
+.clrs-about {
+  position: absolute;
+  bottom: -7px;
+  left: -1px;
+}
+
+.clrs-about * {
+  font-size: 14px !important;
+}
+
+.clrs-about a {
+  color: #0c86e6 !important;
 }
 
 /* bootstrap shenanigans below */
