@@ -71,7 +71,7 @@ colouriseEverything = function () {
 		var nodeTag = this.nodeName;
 		if (nodeTag && (ignoreTags.indexOf(nodeTag) == -1) && !nodeClass) {
 			var newSelector = 'colourised-' + nodeTag;
-			$(event.target).addClass(newSelector);
+			$(this).addClass(newSelector);
 			nodeTag = null;
 			nodeClass = '.' + newSelector;
 		}
@@ -115,19 +115,21 @@ Tracker.autorun(function () {
 	}
 });
 
-Template.colourise.onRendered(function () {
-	var ctrlDown = false;
-    var ctrlKey = 17, shortcutKey = 186;
+Template.body.onRendered(function () {
+	var ctrlDown = false, altDown = false;
+    var ctrlKey = 17, altKey = 18, shortcutKey = 76;
 
     $(document).keydown(function(e)
     {
         if (e.keyCode == ctrlKey) ctrlDown = true;
-        if (ctrlDown && e.keyCode == shortcutKey) {
+        if (e.keyCode == altKey) altDown = true;
+        if (altDown && e.keyCode == shortcutKey) {
         	Session.set('colouriseVisible', !Session.get('colouriseVisible'));
         }
     }).keyup(function(e)
     {
         if (e.keyCode == ctrlKey) ctrlDown = false;
+        if (e.keyCode == altKey) altDown = false;
     });
     $(document).click(function (event) {
     	if (event.target.getAttribute('class') != 'colourise-box') $('.colourise-picker').css('visibility', 'hidden');

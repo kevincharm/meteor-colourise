@@ -10,6 +10,16 @@ Package.onUse(function(api) {
 	api.versionsFrom("1.0.1");
 	api.use(["meteor", "ddp", "jquery", "mongo", "templating", "session", "tracker"]);
 
+	ironRouterExists = function () {
+		var fs = Npm.require('fs');
+		var path = Npm.require('path');
+		var meteorPackages = fs.readFileSync(path.resolve('.meteor/packages'), 'utf8');
+		return !!meteorPackages.match(/iron-router\n/);
+	}
+	if (ironRouterExists()) {
+		api.use(['iron-router'], ['client', 'server']);
+	}
+	
 	serverFiles = [
 		"server/colourise.js"
 	];
