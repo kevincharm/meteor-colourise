@@ -9,7 +9,7 @@ Package.describe({
 Package.onUse(function(api) {
 	api.versionsFrom("1.0.1");
 	api.use(["meteor", "ddp", "jquery", "mongo", "templating", "session", "tracker"]);
-	api.use(["iron:router@0.9.0"], ["client"], {weak: true});
+	api.use(["iron:router@1.0.0"], ["client"], {weak: true});
 	
 	serverFiles = [
 		"server/colourise.js"
