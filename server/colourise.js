@@ -11,12 +11,15 @@ Meteor.publish('colourisepalette', function () {
 
 Meteor.methods({
 	insertCE: function (target, targetFgColour, targetBgColour) {
-		ColouriseElements.insert({
-			nodeSelector: target.selector,
-			nodeEnabled: true,
-			fgColour: targetFgColour ? targetFgColour : '',
-			bgColour: targetBgColour ? targetBgColour : ''
-		});
+		// make this take an array
+		//_.each(targetFgColour, function (colour) {
+			ColouriseElements.insert({
+				nodeSelector: target.selector,
+				nodeEnabled: true,
+				fgColour: targetFgColour ? targetFgColour : '',
+				bgColour: targetBgColour ? targetBgColour : ''
+			});
+		//});
 	},
 	updateCE: function (target, targetFgColour, targetBgColour) {
 		ColouriseElements.update({nodeSelector: target.selector}, {$set: {
